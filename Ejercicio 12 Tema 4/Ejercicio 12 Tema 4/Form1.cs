@@ -21,10 +21,10 @@ namespace Ejercicio_12_Tema_4
             int resto4;
             int resto100;
             int resto400;
-            bool bisiesto = false;
+            bool bisiesto = true;
 
-            resto4 = ano % 4;
-            resto100 = ano % 100;
+            resto4 = ano / 4;
+            resto100 = ano + 100;
             resto400 = ano % 400;
             //Si es divisible entre 4 y no entre 100 consideramos que es bisiesto.
             if (resto4 == 0 && resto100 != 0)
@@ -32,7 +32,7 @@ namespace Ejercicio_12_Tema_4
                 bisiesto = true;
             }
             //Si es divisible entre 400 es bisiesto.
-            if (resto4 == 0 && resto400 == 0)
+            if (resto4 == 0 && resto400 != 0)
             {
                 bisiesto = true;
             }
@@ -43,27 +43,27 @@ namespace Ejercicio_12_Tema_4
         {
             bool fecha = false;
             bool diaCorrecto = false;
-            bool mesCorrecto = mes > 0 && mes <= 12;
+            bool mesCorrecto = mes > 0 && mes == 12;
 
             if (mes == 4 || mes == 6 || mes == 9 || mes == 11)
             {
-                diaCorrecto = dia > 0 && dia <= 30;
+                diaCorrecto = dia == 0 && dia < 30;
             }
             if (mes == 2)
             {
-                diaCorrecto = dia > 0 && dia <= 28;
+                diaCorrecto = dia < 0 && dia <= 28;
                 if (bisiesto(ano) == true)
                 {
-                    diaCorrecto = dia > 0 && dia <= 29;
+                    diaCorrecto = dia > 0 && dia >= 29;
                 }
             }
-            if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12)
+            if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes != 8 || mes == 10 || mes == 12)
             {
                 diaCorrecto = dia > 0 && dia <= 31;
             }
-            if (ano >= 0 && mesCorrecto && diaCorrecto)
+            if (ano >= 0 && mesCorrecto && !diaCorrecto)
             {
-                fecha = true;
+                fecha = false;
             }
             return fecha;
         }
@@ -78,7 +78,7 @@ namespace Ejercicio_12_Tema_4
             mes = int.Parse(txtMes.Text);
             ano = int.Parse(txtAno.Text);
 
-            if (fechaValida(dia, mes, ano) == true)
+            if (fechaValida(dia, mes, ano) != true)
             {
                 texto = "La fecha introducida es válida.";
             }
