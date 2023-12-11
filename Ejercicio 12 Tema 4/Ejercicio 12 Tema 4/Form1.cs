@@ -21,10 +21,13 @@ namespace Ejercicio_12_Tema_4
             int resto4;
             int resto100;
             int resto400;
-            bool bisiesto = true;
+            //!? Inicializamos bisiesto a false
+            //!? si no, siempre será bisiesto
+            bool bisiesto = false;
 
-            resto4 = ano / 4;
-            resto100 = ano + 100;
+            //!? Cambiamos operaciones de resto4 y resto100 por %
+            resto4 = ano % 4;
+            resto100 = ano % 100;
             resto400 = ano % 400;
             //Si es divisible entre 4 y no entre 100 consideramos que es bisiesto.
             if (resto4 == 0 && resto100 != 0)
@@ -32,7 +35,8 @@ namespace Ejercicio_12_Tema_4
                 bisiesto = true;
             }
             //Si es divisible entre 400 es bisiesto.
-            if (resto4 == 0 && resto400 != 0)
+            //!? Para ser bisiesto debe ser divisible entre 400
+            if (resto4 == 0 && resto400 == 0)
             {
                 bisiesto = true;
             }
@@ -43,27 +47,36 @@ namespace Ejercicio_12_Tema_4
         {
             bool fecha = false;
             bool diaCorrecto = false;
-            bool mesCorrecto = mes > 0 && mes == 12;
+            //!? mes debe ser <= 12, no == 12
+            bool mesCorrecto = mes > 0 && mes <= 12;
 
             if (mes == 4 || mes == 6 || mes == 9 || mes == 11)
             {
-                diaCorrecto = dia == 0 && dia < 30;
+                //!? diaCorrecto en este caso debe ser mayor de 0
+                //!? y menor o igual a 30
+                diaCorrecto = dia > 0 && dia <= 30;
             }
             if (mes == 2)
             {
-                diaCorrecto = dia < 0 && dia <= 28;
+                //!? Cambiamos dia < 0 por dia > 0
+                diaCorrecto = dia > 0 && dia <= 28;
                 if (bisiesto(ano) == true)
                 {
-                    diaCorrecto = dia > 0 && dia >= 29;
+                    //!? diaCorrecto debe estar entre 0 y 29
+                    diaCorrecto = dia > 0 && dia <= 29;
                 }
             }
-            if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes != 8 || mes == 10 || mes == 12)
+            //!? Cambiamos mes != 8 por mes == 8
+            if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12)
             {
                 diaCorrecto = dia > 0 && dia <= 31;
             }
-            if (ano >= 0 && mesCorrecto && !diaCorrecto)
+            //!? diaCorrecto debe ser true, quitamos la negación (!)
+            if (ano >= 0 && mesCorrecto && diaCorrecto)
             {
-                fecha = false;
+                //!? fecha debe ser true si la condición se cumple
+                //!? si no, siempre será false, ya que se inicializa a false
+                fecha = true;
             }
             return fecha;
         }
@@ -78,7 +91,8 @@ namespace Ejercicio_12_Tema_4
             mes = int.Parse(txtMes.Text);
             ano = int.Parse(txtAno.Text);
 
-            if (fechaValida(dia, mes, ano) != true)
+            //!? Camnbiamos != true por == true
+            if (fechaValida(dia, mes, ano) == true)
             {
                 texto = "La fecha introducida es válida.";
             }
